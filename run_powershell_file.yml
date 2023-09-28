@@ -1,0 +1,18 @@
+- name: Run PowerShell script from a file
+  hosts: all
+  tasks:
+    - name: Copy PowerShell script to remote Windows machine
+      win_copy:
+        src: /tcp-server.ps1  
+        dest: C:\  
+        force: yes
+
+    - name: Execute PowerShell script from file
+      win_shell: |
+        $scriptPath = "C:\tcp-server.ps1"  
+        & $scriptPath
+      register: powershell_output
+
+    - name: Display PowerShell script output
+      debug:
+        var: powershell_output.stdout_lines
