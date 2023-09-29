@@ -1,0 +1,27 @@
+- name: Run PowerShell script from a file
+  hosts: windows
+  become_method: runas
+
+  vars:
+    - ansible_become_password: 12341234
+    - ansible_become_user: oleh-local
+    - script: tcp-server.ps1
+    - windows_scrip_path: "C:\\Temp\\{{script}}"
+
+
+  tasks:
+    - name: Copy PowerShell script to remote Windows machine
+      win_copy:
+        src: "./{{script}}"
+        dest: "{{ windows_scrip_path }}"
+        force: yes
+
+    - name: Execute PowerShell script from file
+      win_shell: "{{windows_scrip_path}}"
+      register: powershell_output
+      become: yes
+      become_user: Administrator
+
+    - name: Display PowerShell script output
+      debug:
+        var: powershell_output.stdout_lines

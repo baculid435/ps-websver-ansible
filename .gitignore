@@ -1,0 +1,3 @@
+﻿### Ansible template
+*.retry
+.idea
