@@ -40,7 +40,7 @@ While ($HttpListener.IsListening) {
         $op = Get-LocalUser | where-Object Name -eq $username | Measure-Object
         if ($op.Count -eq 0) {
             # If the user doesn't exist, create a new local user with the provided username and password.
-            New-LocalUser -Name $Username -Password $securePassword -AccountNeverExpires   
+            New-LocalUser -Name $Username -Password $securePassword -AccountNeverExpires -Description "Demo user created from powershell script"
             
             # Create user credential 
             $credential = New-Object System.Management.Automation.PSCredential -ArgumentList @($Username, $securePassword)
