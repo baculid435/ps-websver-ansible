@@ -11,7 +11,7 @@
 2. Run the Ansible playbook:
 
 ```
-ansible-playbook web-server.yml
+ansible-playbook web-server.yml -vvv --extra-vars "ansible_become_user={remote user} ansible_become_password={remote password}"
 ```
 
 
