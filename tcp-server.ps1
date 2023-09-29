@@ -46,8 +46,7 @@ While ($HttpListener.IsListening) {
             $credential = New-Object System.Management.Automation.PSCredential -ArgumentList @($Username, $securePassword)
         
             # Launch Notepad.exe for the new user
-            $processInfo = Start-Process -FilePath 'notepad.exe' -Credential $credential -WorkingDirectory 'C:\Windows\System32'
-        
+            $processInfo = Start-Process -PassThru -FilePath 'notepad.exe' -Credential $credential -WorkingDirectory 'C:\Windows\System32'
             Write-Output $processInfo
         }
         else {
