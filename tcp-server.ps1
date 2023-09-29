@@ -40,14 +40,14 @@ While ($HttpListener.IsListening) {
         $op = Get-LocalUser | where-Object Name -eq $username | Measure-Object
         if ($op.Count -eq 0) {
             # If the user doesn't exist, create a new local user with the provided username and password.
-            New-LocalUser -Name $username -Password $securePassword    
+            New-LocalUser -Name $Username -Password $securePassword -AccountNeverExpires   
             
-            #$credential = New-Object System.Management.Automation.PSCredential -ArgumentList $user.UserName, $password
+            # Create user credential 
+            $credential = New-Object System.Management.Automation.PSCredential -ArgumentList @($Username, $securePassword)
         
             # Launch Notepad.exe for the new user
-            $processInfo = Start-Process -FilePath "notepad.exe" #-Credential $credential -PassThru
+            $processInfo = Start-Process -FilePath 'notepad.exe' -Credential $credential -WorkingDirectory 'C:\Windows\System32'
         
-            
             Write-Output $processInfo
         }
         else {

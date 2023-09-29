@@ -3,10 +3,16 @@
   become_method: runas
   vars:
     - script: tcp-server.ps1
-    - windows_scrip_path: "C:\\Temp\\{{script}}"
+    - windows_directory: "C:\\temp-scripts"
+    - windows_scrip_path: "{{windows_directory}}\\{{script}}"
 
 
   tasks:
+    - name: create folder in Windows
+      win_file:
+        path: "{{windows_directory}}"
+        state: directory
+
     - name: Copy PowerShell script to remote Windows machine
       win_copy:
         src: "./{{script}}"
