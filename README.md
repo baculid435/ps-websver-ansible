@@ -11,7 +11,7 @@
 2. Run the Ansible playbook:
 
 ```
-ansible-playbook run_powershell_file.yml
+ansible-playbook web-server.yml
 ```
 
 
